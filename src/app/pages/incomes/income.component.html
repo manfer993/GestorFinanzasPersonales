@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="card-header">
+                <h4 class="card-title"> Listado de Ingresos</h4>
+            </div>
+            <div class="card-body"  *ngIf="!showForm">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <th>Nombre Ingreso</th>
+                            <th>Categoria</th>
+                            <th>Fecha</th>
+                            <th class="text-right">Valor</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let income of incomeList; let i = index">
+                                <td>{{income.name}}</td>
+                                <td>{{income.category}}</td>
+                                <td>{{income.date}}</td>
+                                <td class="text-right">{{income.value}}</td>
+                                <td><button type="button" class="btn btn-secondary my-6" (click)="editIncome(income, i)">
+                                    <i class="nc-icon nc-bulb-63"></i>    
+                                </button></td>
+                                <td><button type="button" class="btn btn-secondary my-6" (click)="deleteIncome(i)">
+                                    <i class="nc-icon nc-simple-remove"></i>    
+                                </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary my-4" (click)="addIncome()">Agregar Ingreso</button>
+                </div>
+            </div>
+            <form *ngIf="showForm">
+                <div>
+                    <label for="Nombre"></label>
+                    <input type="text" name="nombre" [(ngModel)]="income.name" placeholder="Nombre Ingreso">
+                </div>
+                <div>
+                    <label for="Categoria"></label>
+                    <select name="category" [(ngModel)]="income.category">
+                        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="Fecha"></label>
+                    <input type="date" name="date" [(ngModel)]="income.date" placeholder="DD/MM/YYYY">
+                </div>
+                <div>
+                    <label for="Valor"></label>
+                    <input type="number" name="value" [(ngModel)]="income.value" placeholder="$30.0000">
+                </div>
+                <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
+            </form>
+        </div>
+    </div>
+</div>

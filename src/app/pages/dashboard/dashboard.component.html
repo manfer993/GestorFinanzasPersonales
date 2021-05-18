@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-shop text-warning"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Patrimonio</p>
+              <p class="card-title">{{total}}<p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-money-coins text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Ingresos</p>
+              <p class="card-title">{{incomeTotal}}<p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-money-coins text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Gastos</p>
+              <p class="card-title">{{expenseTotal}}<p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Comportamiento Financiero</h5>
+      </div>
+      <div class="card-body ">
+        <canvas id=chartHours width="400" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Ingresos</h5>
+        <p class="card-category">Ultimos Ingresos Categorizados</p>
+      </div>
+      <div class="card-body ">
+        <canvas id="chartIncomes"></canvas>
+      </div>
+      <div class="card-footer ">
+        <div class="legend">
+          <i class="fa fa-circle text-primary"></i> Salario
+          <i class="fa fa-circle text-warning"></i> Venta
+          <i class="fa fa-circle text-danger"></i> Prestamo
+          <i class="fa fa-circle text-gray"></i> Otros
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Gastos</h5>
+        <p class="card-category">Ultimos Gastos Categorizados</p>
+      </div>
+      <div class="card-body">
+        <canvas id="chartExpenses"></canvas>
+      </div>
+      <div class="card-footer ">
+        <div class="legend">
+          <i class="fa fa-circle text-primary"></i> Comida
+          <i class="fa fa-circle text-warning"></i> Ropa
+          <i class="fa fa-circle text-danger"></i> Arriendo
+          <i class="fa fa-circle text-gray"></i> Otros
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
