@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
 
 import { SidebarModule } from './sidebar/sidebar.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
+import { NavbarModule } from './shared/navbar/navbar.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
@@ -21,7 +21,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
+    RouterModule.forRoot(AppRoutes, {
       useHash: true
     }),
     SidebarModule,
