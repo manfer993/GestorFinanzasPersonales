@@ -11,7 +11,7 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     }),
     SidebarModule,
     NavbarModule,
+    HttpClientModule,
     ToastrModule.forRoot()
   ],
   providers: [],
