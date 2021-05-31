@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import User from 'app/models/user.model';
-import { UsuarioService } from 'app/service/usuario.service';
+import { UsuarioService } from 'app/services/users/usuario.service';
 
 @Component({
   selector: 'app-login',

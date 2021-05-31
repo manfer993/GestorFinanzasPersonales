@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CuentaService } from 'app/service/cuenta.service';
+import { CuentaService } from 'app/services/accounts/cuenta.service';
 import Account from '../../models/account.model';
 
 @Component({
@@ -22,13 +22,14 @@ export class AccountComponent implements OnInit {
         this.account.user_id = this.user['id_usuario'];
         this.showForm = false;
         this.currentAccountIndex = -1;
+        this.accountService.mapAccount(this.account.user_id);
         this.getAccount();
     }
 
     ngOnInit() {
     }
 
-    async  submit() {
+    async submit() {
         if (this.currentAccountIndex == -1) {
             this.createAccount();
             //this.accountList.push(this.account);
@@ -67,23 +68,38 @@ export class AccountComponent implements OnInit {
         });
     }
 
-    updateAccount(index){
+    updateAccount(index) {
         this.accountService.updateAccount(this.accountList[index]).subscribe(data => {
             console.log(data);
         });
     }
 
-    getAccount() {
-        this.accountService.getAccount(this.account.user_id).subscribe(data => {
-            console.log(data);
-            this.accountList = new Array<Account>();
-            for(var myData of Object.values(data)){
-                this.account = new Account();
-                this.account.id = myData['ID_CUENTA'];
-                this.account.name = myData['NOMBRE'];
-                this.account.user_id = myData['FK_USUARIO'];
-                this.accountList.push(this.account);
-            }  
+    getAccount() {        
+        this.accountService.accountList$.subscribe(data =>{
+            this.accountList = data;
         });
+        // this.accountService.getAccount(this.account.user_id).subscribe((data: any[]) => {
+        //     console.log(data);
+        //     return data
+        //     this.accountList = new Array<Account>();
+        //     for (let myData of data) {
+        //         this.account = new Account();
+        //         this.account.id = myData['ID_CUENTA'];
+        //         this.account.name = myData['NOMBRE'];
+        //         this.account.user_id = myData['FK_USUARIO'];
+        //         this.accountList.push(this.account);
+        //     }
+        // });
+    }
+    getAccountList() {
+
+        this.accountList = new Array<Account>();
+        // for (let myData of this.getAccount()) {
+        //     this.account = new Account();
+        //     this.account.id = myData['ID_CUENTA'];
+        //     this.account.name = myData['NOMBRE'];
+        //     this.account.user_id = myData['FK_USUARIO'];
+        //     this.accountList.push(this.account);
+        // }
     }
 }

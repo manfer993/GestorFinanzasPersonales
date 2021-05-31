@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Account from 'app/models/account.model';
+import { CuentaService } from 'app/services/accounts/cuenta.service';
 
 
 @Component({
@@ -7,6 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
+  account: Account;
+  user: any;
 
-  ngOnInit() { }
+  constructor() {      
+  }
+
+  ngOnInit() {
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Income from '../../models/income.model';
-import { CuentaService } from 'app/service/cuenta.service';
+import { CuentaService } from 'app/services/accounts/cuenta.service';
 
 @Component({
   selector: 'app-income',
@@ -24,6 +24,7 @@ export class IncomeComponent implements OnInit {
     this.income = new Income();
     this.showForm = false;
     this.currentIncomeIndex = -1;
+    this.accountService.mapAccount(this.user_id);
     this.getAccounts();
   }
 
@@ -31,11 +32,8 @@ export class IncomeComponent implements OnInit {
   }
 
   getAccounts() {
-    this.accountService.getAccount(this.user_id).subscribe(data => {
-      console.log(data);
-      for (var myData of Object.values(data)) {
-        this.lista.push(myData['NOMBRE']);
-      }
+    this.accountService.accountList$.subscribe(data => {
+      this.lista = data.map(item => item.name);
     });
   }
 
