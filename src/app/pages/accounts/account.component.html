@@ -15,7 +15,7 @@
                         <tbody>
                             <tr *ngFor="let account of accountList; let i = index">
                                 <td>{{account.name}}</td>
-                                <td><button type="button" class="btn btn-secondary my-6" (click)="editAccount(account, i)">
+                                <td><button type="button" class="btn btn-secondary my-6" (click)="editAccountForm(account, i)">
                                     <i class="nc-icon nc-bulb-63"></i>    
                                 </button></td>
                                 <td><button type="button" class="btn btn-secondary my-6" (click)="deleteAccount(i)">
@@ -24,7 +24,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary my-4" (click)="addAccount()">Agregar Cuenta</button>
+                    <button type="button" class="btn btn-primary my-4" (click)="addAccountForm()">Agregar Cuenta</button>
                 </div>
             </div>
             <form *ngIf="showForm">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Income from '../../models/income.model';
+import { CuentaService } from 'app/service/cuenta.service';
 
 @Component({
   selector: 'app-income',
@@ -8,33 +9,47 @@ import Income from '../../models/income.model';
 })
 export class IncomeComponent implements OnInit {
 
+  user: any;
+  user_id: string;
   incomeList: Income[];
   income: Income;
   showForm: boolean;
   currentIncomeIndex: number;
-  lista: string[] = ["Salario", "Venta", "Prestamo", "Otros"];
+  lista: string[] = [];
 
-  constructor() {
+  constructor(private accountService: CuentaService) {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.user_id = this.user['id_usuario'];
     this.incomeList = new Array<Income>();
     this.income = new Income();
     this.showForm = false;
     this.currentIncomeIndex = -1;
+    this.getAccounts();
   }
 
   ngOnInit() {
   }
-  
-  submit(){
-    if(this.currentIncomeIndex == -1){
-        this.incomeList.push(this.income);
-    }else{
-        this.incomeList[this.currentIncomeIndex]=this.income;
+
+  getAccounts() {
+    this.accountService.getAccount(this.user_id).subscribe(data => {
+      console.log(data);
+      for (var myData of Object.values(data)) {
+        this.lista.push(myData['NOMBRE']);
+      }
+    });
+  }
+
+  submit() {
+    if (this.currentIncomeIndex == -1) {
+      this.incomeList.push(this.income);
+    } else {
+      this.incomeList[this.currentIncomeIndex] = this.income;
     }
     this.income = new Income();
     this.showForm = false;
   }
 
-  addIncome(){
+  addIncome() {
     this.showForm = true;
     this.currentIncomeIndex = -1;
   }
@@ -46,6 +61,6 @@ export class IncomeComponent implements OnInit {
   }
 
   deleteIncome(index) {
-    this.incomeList.splice(index,1);
+    this.incomeList.splice(index, 1);
   }
 }
