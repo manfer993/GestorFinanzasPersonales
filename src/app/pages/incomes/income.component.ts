@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Income from '../../models/income.model';
 import { CuentaService } from 'app/services/accounts/cuenta.service';
+import { CategoriaService } from 'app/services/categories/categoria.service';
 
 @Component({
   selector: 'app-income',
@@ -15,9 +16,10 @@ export class IncomeComponent implements OnInit {
   income: Income;
   showForm: boolean;
   currentIncomeIndex: number;
-  lista: string[] = [];
+  listaCuentas: string[] = [];
+  listaCategorias: string[] = [];
 
-  constructor(private accountService: CuentaService) {
+  constructor(private accountService: CuentaService, private categoryService: CategoriaService) {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     this.user_id = this.user['id_usuario'];
     this.incomeList = new Array<Income>();
@@ -26,6 +28,8 @@ export class IncomeComponent implements OnInit {
     this.currentIncomeIndex = -1;
     this.accountService.mapAccount(this.user_id);
     this.getAccounts();
+    this.categoryService.mapCategory('I');
+    this.getCategories();
   }
 
   ngOnInit() {
@@ -33,8 +37,20 @@ export class IncomeComponent implements OnInit {
 
   getAccounts() {
     this.accountService.accountList$.subscribe(data => {
-      this.lista = data.map(item => item.name);
+      console.log(data);
+      this.listaCuentas = data.map(item => item.name);
     });
+  }
+
+  getCategories(){
+    this.categoryService.categoryList$.subscribe(data => {
+      console.log(data);
+      this.listaCategorias = data.map(item => item.name);
+    });
+  }
+
+  cancel(){    
+    this.showForm = false;
   }
 
   submit() {

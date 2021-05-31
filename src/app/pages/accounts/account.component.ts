@@ -28,6 +28,10 @@ export class AccountComponent implements OnInit {
 
     ngOnInit() {
     }
+    
+    cancel() {
+        this.showForm = false;
+    }
 
     async submit() {
         if (this.currentAccountIndex == -1) {
@@ -59,7 +63,6 @@ export class AccountComponent implements OnInit {
             console.log(data);
         });
         this.getAccount();
-        //this.accountList.splice(index, 1);
     }
 
     createAccount() {
@@ -74,32 +77,9 @@ export class AccountComponent implements OnInit {
         });
     }
 
-    getAccount() {        
-        this.accountService.accountList$.subscribe(data =>{
+    getAccount() {
+        this.accountService.accountList$.subscribe(data => {
             this.accountList = data;
         });
-        // this.accountService.getAccount(this.account.user_id).subscribe((data: any[]) => {
-        //     console.log(data);
-        //     return data
-        //     this.accountList = new Array<Account>();
-        //     for (let myData of data) {
-        //         this.account = new Account();
-        //         this.account.id = myData['ID_CUENTA'];
-        //         this.account.name = myData['NOMBRE'];
-        //         this.account.user_id = myData['FK_USUARIO'];
-        //         this.accountList.push(this.account);
-        //     }
-        // });
-    }
-    getAccountList() {
-
-        this.accountList = new Array<Account>();
-        // for (let myData of this.getAccount()) {
-        //     this.account = new Account();
-        //     this.account.id = myData['ID_CUENTA'];
-        //     this.account.name = myData['NOMBRE'];
-        //     this.account.user_id = myData['FK_USUARIO'];
-        //     this.accountList.push(this.account);
-        // }
     }
 }

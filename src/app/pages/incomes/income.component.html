@@ -9,6 +9,7 @@
                     <table class="table">
                         <thead class="text-primary">
                             <th>Nombre Ingreso</th>
+                            <th>Cuenta</th>
                             <th>Categoria</th>
                             <th>Fecha</th>
                             <th class="text-right">Valor</th>
@@ -18,6 +19,7 @@
                         <tbody>
                             <tr *ngFor="let income of incomeList; let i = index">
                                 <td>{{income.name}}</td>
+                                <td>{{income.account}}</td>
                                 <td>{{income.category}}</td>
                                 <td>{{income.date}}</td>
                                 <td class="text-right">{{income.value}}</td>
@@ -35,24 +37,31 @@
             </div>
             <form *ngIf="showForm">
                 <div>
-                    <label for="Nombre"></label>
-                    <input type="text" name="nombre" [(ngModel)]="income.name" placeholder="Nombre Ingreso">
+                    <label for="Nombre">Nombre:</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="income.name" placeholder="Nombre Ingreso" autocomplete="off">
                 </div>
                 <div>
-                    <label for="Categoria"></label>
-                    <select name="category" [(ngModel)]="income.category">
-                        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+                    <label for="Cuenta">Cuenta:</label>
+                    <select name="account" class="form-control" [(ngModel)]="income.account">
+                        <option [value]="item" *ngFor="let item of listaCuentas">{{item}}</option>
                     </select>
                 </div>
                 <div>
-                    <label for="Fecha"></label>
-                    <input type="date" name="date" [(ngModel)]="income.date" placeholder="DD/MM/YYYY">
+                    <label for="Categoria">Categoria:</label>
+                    <select name="category" class="form-control" [(ngModel)]="income.category">
+                        <option [value]="item" *ngFor="let item of listaCategorias">{{item}}</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="Valor"></label>
-                    <input type="number" name="value" [(ngModel)]="income.value" placeholder="$30.0000">
+                    <label for="Fecha">Fecha:</label>
+                    <input type="date" class="form-control" name="date" [(ngModel)]="income.date" placeholder="DD/MM/YYYY">
+                </div>
+                <div>
+                    <label for="Valor">Valor:</label>
+                    <input type="number" class="form-control" name="value" [(ngModel)]="income.value" placeholder="$30.0000">
                 </div>
                 <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
+                <button type="button" class="btn btn-secondary my-4" (click)="cancel()">Cancelar</button>
             </form>
         </div>
     </div>

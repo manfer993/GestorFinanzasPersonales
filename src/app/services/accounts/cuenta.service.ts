@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 export class CuentaService {
   private accountList = new Subject<any>();
   accountList$ = this.accountList.asObservable();
+  
   constructor(private http: HttpClient) {
   }
 

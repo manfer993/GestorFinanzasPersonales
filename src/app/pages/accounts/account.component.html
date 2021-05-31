@@ -29,10 +29,11 @@
             </div>
             <form *ngIf="showForm">
                 <div>
-                    <label for="Nombre"></label>
-                    <input type="text" class="form-control" name="nombre" [(ngModel)]="account.name" placeholder="Nombre Cuenta">
+                    <label for="Nombre">Nombre Cuenta</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="account.name" placeholder="Nombre Cuenta" autocomplete="off">
                 </div>
                 <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
+                <button type="button" class="btn btn-secondary my-4" (click)="cancel()">Cancelar</button>
             </form>
         </div>
     </div>
