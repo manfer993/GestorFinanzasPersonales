@@ -17,6 +17,10 @@ export class CuentaService {
     const user_id = { 'id_usuario': userId }
     return this.http.get('http://localhost:80/rest/src/cuentas.php', { params: user_id });
   }
+  getAccountById(accountid: string) {
+    const user_id = { 'id_usuario': accountid }
+    return this.http.get('http://localhost:80/rest/src/cuentas.php', { params: user_id });
+  }
   createAccount(account: Account) {
     const postAccount = { nombre: account.name, fk_usuario: account.user_id }
     return this.http.post('http://localhost:80/rest/src/cuentas.php', postAccount);

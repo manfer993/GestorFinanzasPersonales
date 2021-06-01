@@ -4,7 +4,7 @@
             <div class="card-header">
                 <h4 class="card-title"> Listado de Ingresos</h4>
             </div>
-            <div class="card-body"  *ngIf="!showForm">
+            <div class="card-body" *ngIf="!showForm">
                 <div class="table-responsive">
                     <table class="table">
                         <thead class="text-primary">
@@ -19,46 +19,51 @@
                         <tbody>
                             <tr *ngFor="let income of incomeList; let i = index">
                                 <td>{{income.name}}</td>
-                                <td>{{income.account}}</td>
-                                <td>{{income.category}}</td>
+                                <td>{{income.account.name}}</td>
+                                <td>{{income.category.name}}</td>
                                 <td>{{income.date}}</td>
                                 <td class="text-right">{{income.value}}</td>
-                                <td><button type="button" class="btn btn-secondary my-6" (click)="editIncome(income, i)">
-                                    <i class="nc-icon nc-bulb-63"></i>    
-                                </button></td>
+                                <td><button type="button" class="btn btn-secondary my-6"
+                                        (click)="editIncomeForm(income, i)">
+                                        <i class="nc-icon nc-bulb-63"></i>
+                                    </button></td>
                                 <td><button type="button" class="btn btn-secondary my-6" (click)="deleteIncome(i)">
-                                    <i class="nc-icon nc-simple-remove"></i>    
-                                </button></td>
+                                        <i class="nc-icon nc-simple-remove"></i>
+                                    </button></td>
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary my-4" (click)="addIncome()">Agregar Ingreso</button>
+                    <button type="button" class="btn btn-primary my-4" (click)="addIncomeForm()">Agregar
+                        Ingreso</button>
                 </div>
             </div>
             <form *ngIf="showForm">
                 <div>
                     <label for="Nombre">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" [(ngModel)]="income.name" placeholder="Nombre Ingreso" autocomplete="off">
+                    <input type="text" class="form-control" name="name" [(ngModel)]="income.name"
+                        placeholder="Nombre Ingreso" autocomplete="off">
                 </div>
                 <div>
                     <label for="Cuenta">Cuenta:</label>
                     <select name="account" class="form-control" [(ngModel)]="income.account">
-                        <option [value]="item" *ngFor="let item of listaCuentas">{{item}}</option>
+                        <option [ngValue]="cuenta" *ngFor="let cuenta of cuentas">{{cuenta.name}}</option>
                     </select>
                 </div>
                 <div>
                     <label for="Categoria">Categoria:</label>
                     <select name="category" class="form-control" [(ngModel)]="income.category">
-                        <option [value]="item" *ngFor="let item of listaCategorias">{{item}}</option>
+                        <option [ngValue]="categoria" *ngFor="let categoria of categorias">{{categoria.name}}</option>
                     </select>
                 </div>
                 <div>
                     <label for="Fecha">Fecha:</label>
-                    <input type="date" class="form-control" name="date" [(ngModel)]="income.date" placeholder="DD/MM/YYYY">
+                    <input type="date" class="form-control" name="date" [(ngModel)]="income.date"
+                        placeholder="DD/MM/YYYY">
                 </div>
                 <div>
                     <label for="Valor">Valor:</label>
-                    <input type="number" class="form-control" name="value" [(ngModel)]="income.value" placeholder="$30.0000">
+                    <input type="number" class="form-control" name="value" [(ngModel)]="income.value"
+                        placeholder="$30.0000">
                 </div>
                 <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
                 <button type="button" class="btn btn-secondary my-4" (click)="cancel()">Cancelar</button>

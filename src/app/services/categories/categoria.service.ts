@@ -13,8 +13,13 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
 
   getCategory(type: string) {
-    const user_id = { 'id': type }
-    return this.http.get('http://localhost:80/rest/src/categorias.php', { params: user_id });
+    const category_type = { 'tipo': type }
+    return this.http.get('http://localhost:80/rest/src/categorias.php', { params: category_type });
+  }
+
+  getCategoryById(id: string) {
+    const category_id = { 'id': id }
+    return this.http.get('http://localhost:80/rest/src/categorias.php', { params: category_id });
   }
 
   mapCategory(type: string) {

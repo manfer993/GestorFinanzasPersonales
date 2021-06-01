@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CuentaService } from 'app/services/accounts/cuenta.service';
-import Account from '../../models/account.model';
+import Account from 'app/models/account.model';
 
 @Component({
     selector: 'account-cmp',
@@ -33,17 +33,13 @@ export class AccountComponent implements OnInit {
         this.showForm = false;
     }
 
-    async submit() {
+    submit() {
         if (this.currentAccountIndex == -1) {
             this.createAccount();
-            //this.accountList.push(this.account);
         } else {
             this.updateAccount(this.currentAccountIndex);
-            //this.accountList[this.currentAccountIndex] = this.account;
         }
-        await new Promise(r => setTimeout(r, 500));
         this.getAccount();
-        //this.account = new Account();
         this.showForm = false;
     }
 

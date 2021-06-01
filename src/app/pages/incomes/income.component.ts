@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import Income from '../../models/income.model';
+import Account from 'app/models/account.model';
+import Category from 'app/models/category.model';
+import Income from 'app/models/income.model';
 import { CuentaService } from 'app/services/accounts/cuenta.service';
 import { CategoriaService } from 'app/services/categories/categoria.service';
+import { IngresoService } from 'app/services/incomes/ingreso.service';
 
 @Component({
   selector: 'app-income',
@@ -16,65 +19,106 @@ export class IncomeComponent implements OnInit {
   income: Income;
   showForm: boolean;
   currentIncomeIndex: number;
-  listaCuentas: string[] = [];
-  listaCategorias: string[] = [];
+  cuentas: Account[] = [];
+  categorias: Category[] = [];
 
-  constructor(private accountService: CuentaService, private categoryService: CategoriaService) {
+  constructor(
+    private accountService: CuentaService,
+    private categoryService: CategoriaService,
+    private incomeService: IngresoService
+  ) {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     this.user_id = this.user['id_usuario'];
+    this.accountService.mapAccount(this.user_id);
+    this.categoryService.mapCategory('I');
     this.incomeList = new Array<Income>();
     this.income = new Income();
     this.showForm = false;
     this.currentIncomeIndex = -1;
-    this.accountService.mapAccount(this.user_id);
-    this.getAccounts();
-    this.categoryService.mapCategory('I');
-    this.getCategories();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.getAccounts();
+    await this.getCategories();
+    setTimeout(() => {
+      this.getIncome();
+    },3000);
+    this.incomeService.incomList$.subscribe((data:Income[]) => {
+      if(data.length > 0 ){
+        data = data.map(element => {
+          element.category = this.categorias.find(item => item.id == element['fk_categoria']);
+          element.account = this.cuentas.find(item => item.id == element['fk_cuenta']);
+          return element;
+        });          
+        this.incomeList = [...this.incomeList, ...data];
+      }
+    });
   }
 
   getAccounts() {
     this.accountService.accountList$.subscribe(data => {
       console.log(data);
-      this.listaCuentas = data.map(item => item.name);
+      this.cuentas = data;
     });
   }
 
-  getCategories(){
+  getCategories() {
     this.categoryService.categoryList$.subscribe(data => {
       console.log(data);
-      this.listaCategorias = data.map(item => item.name);
+      this.categorias = data;
     });
   }
 
-  cancel(){    
+  cancel() {
     this.showForm = false;
   }
 
   submit() {
     if (this.currentIncomeIndex == -1) {
-      this.incomeList.push(this.income);
+      this.createIncome();
     } else {
-      this.incomeList[this.currentIncomeIndex] = this.income;
+      this.updateIncome(this.currentIncomeIndex);
     }
-    this.income = new Income();
+    this.getIncome();
     this.showForm = false;
   }
 
-  addIncome() {
+  addIncomeForm() {
     this.showForm = true;
     this.currentIncomeIndex = -1;
   }
 
-  editIncome(income, index) {
+  editIncomeForm(income, index) {
     this.income = income;
     this.showForm = true;
     this.currentIncomeIndex = index;
   }
 
   deleteIncome(index) {
-    this.incomeList.splice(index, 1);
+    this.incomeService.deleteIncome(this.incomeList[index].id).subscribe(data => {
+      console.log(data);
+    });
+    this.getIncome();
+  }
+
+  createIncome() {
+    this.incomeService.createIncome(this.income).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  updateIncome(index) {
+    this.incomeService.updateIncome(this.incomeList[index]).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  getIncome() {
+    console.log('cuentas');
+    console.log(this.cuentas);
+    this.incomeList = new Array<Income>();
+    for (let cuenta of this.cuentas) {
+      this.incomeService.mapIncome(cuenta.id);
+    }       
   }
 }
