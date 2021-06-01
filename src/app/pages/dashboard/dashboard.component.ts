@@ -76,6 +76,8 @@ export class DashboardComponent implements OnInit {
     this.ctxI = this.canvasI.getContext("2d");
     this.canvasE = document.getElementById("chartExpenses");
     this.ctxE = this.canvasE.getContext("2d");
+    this.canvas = document.getElementById("chartHours");
+    this.ctx = this.canvas.getContext("2d");
     await this.getAccounts();
     this.incomeService.incomList$.subscribe((data: Income[]) => {
       if (data.length > 0) {
@@ -108,76 +110,8 @@ export class DashboardComponent implements OnInit {
 
     setTimeout(() => {
       this.total = this.incomeTotal - this.expenseTotal;
-    }, 5500);
-
-    this.canvas = document.getElementById("chartHours");
-    this.ctx = this.canvas.getContext("2d");
-
-    this.chartHours = new Chart(this.ctx, {
-      type: 'line',
-
-      data: {
-        labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        datasets: [{
-          borderColor: "#f17e5d",
-          backgroundColor: "#f17e5d",
-          pointRadius: 0,
-          pointHoverRadius: 0,
-          borderWidth: 3,
-          data: [5600, 6700, 7000, 5600, 5800, 5000, 5600, 6600, 6600, 6800, 6900, 7000]
-        },
-        {
-          borderColor: "#6bd098",
-          backgroundColor: "#6bd098",
-          pointRadius: 0,
-          pointHoverRadius: 0,
-          borderWidth: 3,
-          data: [7000, 7000, 7200, 7000, 7500, 7500, 7500, 7500, 7500, 7500, 7800, 7800]
-        }
-        ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-
-        tooltips: {
-          enabled: false
-        },
-
-        scales: {
-          yAxes: [{
-
-            ticks: {
-              fontColor: "#9f9f9f",
-              beginAtZero: false,
-              maxTicksLimit: 5,
-              padding: 20
-            },
-            gridLines: {
-              drawBorder: false,
-              zeroLineColor: "#ccc",
-              color: 'rgba(255,255,255,0.05)'
-            }
-
-          }],
-
-          xAxes: [{
-            barPercentage: 1.6,
-            gridLines: {
-              drawBorder: false,
-              color: 'rgba(255,255,255,0.1)',
-              zeroLineColor: "transparent",
-              display: false,
-            },
-            ticks: {
-              padding: 20,
-              fontColor: "#9f9f9f"
-            }
-          }]
-        },
-      }
-    });
+      this.chartComparison();
+    }, 5500);   
   }
 
   chartExpenses() {
@@ -291,6 +225,78 @@ export class DashboardComponent implements OnInit {
             },
             ticks: {
               display: false,
+            }
+          }]
+        },
+      }
+    });
+  }
+
+  chartComparison(){
+    this.chartHours = new Chart(this.ctx, {
+      type: 'line',
+
+      data: {
+        labels: this.accounts.map(item => item.name),
+        datasets: [{
+          borderColor: "#f17e5d",
+          backgroundColor: "#f17e5d",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth: 3,
+          data: this.accounts.map(item => this.expenseList.filter(element => element['fk_cuenta'] == item.id))
+          .filter(item => item.length)
+          .map(item => item.map(element => element.value).reduce((a, b) => a + b))
+        },
+        {
+          borderColor: "#6bd098",
+          backgroundColor: "#6bd098",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth: 3,
+          data: this.accounts.map(item => this.incomeList.filter(element => element['fk_cuenta'] == item.id))
+          .filter(item => item.length)
+          .map(item => item.map(element => element.value).reduce((a, b) => a + b))
+        }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+
+        tooltips: {
+          enabled: false
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              fontColor: "#9f9f9f",
+              beginAtZero: false,
+              maxTicksLimit: 5,
+              padding: 20
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "#ccc",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent",
+              display: false,
+            },
+            ticks: {
+              padding: 20,
+              fontColor: "#9f9f9f"
             }
           }]
         },
