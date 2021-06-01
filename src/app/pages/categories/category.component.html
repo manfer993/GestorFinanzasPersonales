@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-plain">
+            <div class="card-header">
+                <h4 class="card-title">Listado de Categorias</h4>
+            </div>
+            <div class="card-body"  *ngIf="!showForm">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <th>Nombre Categoria</th>
+                            <th>Tipo</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categoryList; let i = index">
+                                <td>{{category.name}}</td>
+                                <td>{{category.type_name}}</td>
+                                <td><button type="button" class="btn btn-secondary my-6" (click)="editCategoryForm(category, i)">
+                                    <i class="nc-icon nc-bulb-63"></i>    
+                                </button></td>
+                                <td><button type="button" class="btn btn-secondary my-6" (click)="deleteCategory(i)">
+                                    <i class="nc-icon nc-simple-remove"></i>    
+                                </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary my-4" (click)="addCategoryForm()">Agregar Cuenta</button>
+                </div>
+            </div>
+            <form *ngIf="showForm">
+                <div>
+                    <label for="Nombre">Nombre Categoria</label>
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="category.name" placeholder="Nombre Cuenta" autocomplete="off">
+                </div>
+                <div>
+                    <label for="Tipo">Tipo:</label>
+                    <select name="type" class="form-control" [(ngModel)]="category.type">
+                        <option [value]="item.id" *ngFor="let item of types">{{item.name}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
+                <button type="button" class="btn btn-secondary my-4" (click)="cancel()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>

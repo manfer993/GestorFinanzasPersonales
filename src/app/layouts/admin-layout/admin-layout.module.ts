@@ -7,6 +7,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { AccountComponent } from '../../pages/accounts/account.component';
+import { CategoryComponent } from '../../pages/categories/category.component';
 import { IncomeComponent } from '../../pages/incomes/income.component';
 import { ExpenseComponent } from '../../pages/expenses/expense.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     DashboardComponent,
     AccountComponent,
+    CategoryComponent,
     IncomeComponent,
     ExpenseComponent
   ]

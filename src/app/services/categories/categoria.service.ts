@@ -22,6 +22,21 @@ export class CategoriaService {
     return this.http.get('http://localhost:80/rest/src/categorias.php', { params: category_id });
   }
 
+  createCategory(category: Category) {
+    const postCategory = { nombre: category.name, tipo: category.type }
+    return this.http.post('http://localhost:80/rest/src/categorias.php', postCategory);
+  }
+
+  updateCategory(category: Category) {
+    const putCategory = { id_categoria: category.id, nombre: category.name, tipo: category.type }
+    return this.http.put('http://localhost:80/rest/src/categorias.php', putCategory);
+  }
+
+  deleteCategory(categoryId: string) {
+    const category_id = { 'id': categoryId }
+    return this.http.delete('http://localhost:80/rest/src/categorias.php', { params: category_id });
+  }
+
   mapCategory(type: string) {
     this.getCategory(type).subscribe((data: any[]) => {
       this.categoryList.next(data.map(item => {
@@ -29,6 +44,7 @@ export class CategoriaService {
         category.id = item['ID_CATEGORIA'];
         category.name = item['NOMBRE'];
         category.type = item['TIPO'];
+        category['type_name'] = item['TIPO'] == 'I'? 'Ingresos':'Gastos';        
         return category;
       }));
     });
