@@ -11,7 +11,8 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Patrimonio</p>
-              <p class="card-title">{{total}}<p>
+              <p class="card-title">{{total}}
+              <p>
             </div>
           </div>
         </div>
@@ -30,7 +31,8 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Ingresos</p>
-              <p class="card-title">{{incomeTotal}}<p>
+              <p class="card-title">{{incomeTotal}}
+              <p>
             </div>
           </div>
         </div>
@@ -49,7 +51,8 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Gastos</p>
-              <p class="card-title">{{expenseTotal}}<p>
+              <p class="card-title">{{expenseTotal}}
+              <p>
             </div>
           </div>
         </div>
@@ -57,7 +60,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12">
     <div class="card ">
       <div class="card-header ">
@@ -68,23 +71,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-md-6">
     <div class="card ">
       <div class="card-header ">
         <h5 class="card-title">Ingresos</h5>
-        <p class="card-category">Ultimos Ingresos Categorizados</p>
+        <p class="card-category">Ultimos Ingresos por cuentas</p>
       </div>
       <div class="card-body ">
         <canvas id="chartIncomes"></canvas>
       </div>
       <div class="card-footer ">
         <div class="legend">
-          <i class="fa fa-circle text-primary"></i> Salario
-          <i class="fa fa-circle text-warning"></i> Venta
-          <i class="fa fa-circle text-danger"></i> Prestamo
-          <i class="fa fa-circle text-gray"></i> Otros
+          <ng-container *ngFor="let cuenta of accounts">
+            <i class="fa fa-circle" [ngClass]="[cuenta['color']]"></i> {{cuenta.name}}
+          </ng-container>
         </div>
       </div>
     </div>
@@ -93,19 +95,18 @@
     <div class="card ">
       <div class="card-header ">
         <h5 class="card-title">Gastos</h5>
-        <p class="card-category">Ultimos Gastos Categorizados</p>
+        <p class="card-category">Ultimos Gastos por cuentas</p>
       </div>
       <div class="card-body">
         <canvas id="chartExpenses"></canvas>
       </div>
       <div class="card-footer ">
         <div class="legend">
-          <i class="fa fa-circle text-primary"></i> Comida
-          <i class="fa fa-circle text-warning"></i> Ropa
-          <i class="fa fa-circle text-danger"></i> Arriendo
-          <i class="fa fa-circle text-gray"></i> Otros
+          <ng-container *ngFor="let cuenta of accounts">
+            <i class="fa fa-circle" [ngClass]="[cuenta['color']]"></i> {{cuenta.name}}
+          </ng-container>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

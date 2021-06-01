@@ -52,13 +52,13 @@
                 <div>
                     <label for="Categoria">Categoria:</label>
                     <select name="category" class="form-control" [(ngModel)]="income.category">
-                        <option [ngValue]="categoria" *ngFor="let categoria of categorias">{{categoria.name}}</option>
+                        <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{categoria.name}}</option>
                     </select>
                 </div>
                 <div>
                     <label for="Fecha">Fecha:</label>
                     <input type="date" class="form-control" name="date" [(ngModel)]="income.date"
-                        placeholder="DD/MM/YYYY">
+                        placeholder="01/06/2021">
                 </div>
                 <div>
                     <label for="Valor">Valor:</label>

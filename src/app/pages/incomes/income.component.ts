@@ -12,7 +12,6 @@ import { IngresoService } from 'app/services/incomes/ingreso.service';
   styleUrls: ['./income.component.scss']
 })
 export class IncomeComponent implements OnInit {
-
   user: any;
   user_id: string;
   incomeList: Income[];

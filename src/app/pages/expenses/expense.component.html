@@ -8,7 +8,7 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead class="text-primary">
-                            <th>Nombre Ingreso</th>
+                            <th>Nombre Gasto</th>
                             <th>Cuenta</th>
                             <th>Categoria</th>
                             <th>Fecha</th>
@@ -18,13 +18,13 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let expense of expenseList; let i = index">
-                                <td>{{expense.name}}</td>                                
-                                <td>{{expense.account}}</td>
-                                <td>{{expense.category}}</td>
+                                <td>{{expense.name}}</td>
+                                <td>{{expense.account.name}}</td>
+                                <td>{{expense.category.name}}</td>
                                 <td>{{expense.date}}</td>
                                 <td class="text-right">{{expense.value}}</td>
                                 <td><button type="button" class="btn btn-secondary my-6"
-                                        (click)="editExpense(expense, i)">
+                                        (click)="editExpenseForm(expense, i)">
                                         <i class="nc-icon nc-bulb-63"></i>
                                     </button></td>
                                 <td><button type="button" class="btn btn-secondary my-6" (click)="deleteExpense(i)">
@@ -33,33 +33,36 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary my-4" (click)="addExpense()">Agregar Gasto</button>
+                    <button type="button" class="btn btn-primary my-4" (click)="addExpenseForm()">Agregar Gasto</button>
                 </div>
             </div>
             <form *ngIf="showForm">
                 <div>
                     <label for="Nombre">Nombre:</label>
-                    <input type="text" class="form-control" name="nombre" [(ngModel)]="expense.name" placeholder="Nombre Gasto" autocomplete="off">
+                    <input type="text" class="form-control" name="nombre" [(ngModel)]="expense.name"
+                        placeholder="Nombre Gasto" autocomplete="off">
                 </div>
                 <div>
                     <label for="Cuenta">Cuenta:</label>
                     <select name="account" class="form-control" [(ngModel)]="expense.account">
-                        <option [value]="item" *ngFor="let item of listaCuentas">{{item}}</option>
+                        <option [ngValue]="cuentaG" *ngFor="let cuentaG of cuentasG">{{cuentaG.name}}</option>
                     </select>
                 </div>
                 <div>
                     <label for="Categoria">Categoria:</label>
                     <select name="category" class="form-control" [(ngModel)]="expense.category">
-                        <option [value]="item" *ngFor="let item of listaCategorias">{{item}}</option>
+                        <option *ngFor="let categoriaG of categoriasG" [ngValue]="categoriaG" >{{categoriaG.name}}</option>
                     </select>
                 </div>
                 <div>
                     <label for="Fecha">Fecha:</label>
-                    <input type="date" class="form-control" name="date" [(ngModel)]="expense.date" placeholder="DD/MM/YYYY">
+                    <input type="date" class="form-control" name="date" [(ngModel)]="expense.date"
+                        placeholder="01/06/2021">
                 </div>
                 <div>
                     <label for="Valor">Valor:</label>
-                    <input type="number" class="form-control" name="value" [(ngModel)]="expense.value" placeholder="$30.0000">
+                    <input type="number" class="form-control" name="value" [(ngModel)]="expense.value"
+                        placeholder="$30.0000">
                 </div>
                 <button type="button" class="btn btn-primary my-4" (click)="submit()">Agregar</button>
                 <button type="button" class="btn btn-secondary my-4" (click)="cancel()">Cancelar</button>
